@@ -38,10 +38,10 @@ const SellingComponent = () => {
   const renderProducts = () => {
     const productElements = [];
   
-    for (let index = 0; index < Products.length; index++) {
-      const product = Products[index];
+    for (let i = 0; i < Products.length; i++) {
+      const product = Products[i];
       productElements.push(
-        <div key={index}>
+        <div key={i}>
           <p> Product ID: {product.id} Selling Price: {product.price} Product Name: {product.name} </p>
         </div>
       );
@@ -63,6 +63,9 @@ const SellingComponent = () => {
       <input type="text" id="productName" value={productNameID} onChange={handleProductName} />
 
       <button className="styled-button" onClick={handleAddProduct}>Add Product</button>
+      
+
+      <label htmlFor="renderedproducts" className="styled-button">PRODUCTS</label>
 
       {renderProducts()}
     </div>
