@@ -7,7 +7,7 @@ const SellingComponent = () => {
   const [sellingPrice, setSellingPrice] = useState("");
   const [productNameID, setProductName] = useState("");
   const [Products, setProducts] = useState([]);
-  
+
 
   const handleProductID = (event) => {
     setProductID(event.target.value);
@@ -25,7 +25,7 @@ const SellingComponent = () => {
     if (productID && sellingPrice && productNameID) {
       const newProduct = {
         id: productID,
-        price: Number(sellingPrice), // Convert price to a number
+        price: Number(sellingPrice),
         name: productNameID
       }
       setProducts([...Products, newProduct]);
@@ -36,6 +36,13 @@ const SellingComponent = () => {
     }
   }
 
+  const DeleteHandler = (index) => {
+    const updatedProducts = [...Products];
+    updatedProducts.splice(index, 1);
+    setProducts(updatedProducts);
+  };
+  
+
   const renderProducts = () => {
     const productElements = [];
 
@@ -44,6 +51,8 @@ const SellingComponent = () => {
       productElements.push(
         <div key={i}>
           <p>Product ID: {product.id} Selling Price: {product.price} Product Name: {product.name}</p>
+          <button onClick={DeleteHandler}>Delete</button>
+
         </div>
       );
     }
@@ -66,7 +75,7 @@ const SellingComponent = () => {
       <input type="text" id="productid" value={productID} onChange={handleProductID} />
 
       <label htmlFor="sellingPrice">Selling Price:</label>
-      <input type="text" id="sellingPrice" value={sellingPrice} onChange={handleSellingPrice} />
+      <input type="number" id="sellingPrice" value={sellingPrice} onChange={handleSellingPrice} />
 
       <label htmlFor="productName">Product Name:</label>
       <input type="text" id="productName" value={productNameID} onChange={handleProductName} />
