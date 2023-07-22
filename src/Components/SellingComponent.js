@@ -7,6 +7,7 @@ const SellingComponent = () => {
   const [sellingPrice, setSellingPrice] = useState("");
   const [productNameID, setProductName] = useState("");
   const [Products, setProducts] = useState([]);
+  
 
   const handleProductID = (event) => {
     setProductID(event.target.value);
@@ -24,7 +25,7 @@ const SellingComponent = () => {
     if (productID && sellingPrice && productNameID) {
       const newProduct = {
         id: productID,
-        price: sellingPrice,
+        price: Number(sellingPrice), // Convert price to a number
         name: productNameID
       }
       setProducts([...Products, newProduct]);
@@ -37,19 +38,27 @@ const SellingComponent = () => {
 
   const renderProducts = () => {
     const productElements = [];
-  
+
     for (let i = 0; i < Products.length; i++) {
       const product = Products[i];
       productElements.push(
         <div key={i}>
-          <p> Product ID: {product.id} Selling Price: {product.price} Product Name: {product.name} </p>
+          <p>Product ID: {product.id} Selling Price: {product.price} Product Name: {product.name}</p>
         </div>
       );
     }
-  
+
     return productElements;
   };
-  
+
+  const calculateTotalValue = () => {
+    let totalValue = 0;
+    for (let i = 0; i < Products.length; i++) {
+      totalValue = totalValue + Products[i].price;
+    }
+    return totalValue;
+  };
+
 
   return (
     <div className="selling-component">
@@ -63,11 +72,14 @@ const SellingComponent = () => {
       <input type="text" id="productName" value={productNameID} onChange={handleProductName} />
 
       <button className="styled-button" onClick={handleAddProduct}>Add Product</button>
-      
 
       <label htmlFor="renderedproducts" className="styled-button">PRODUCTS</label>
 
       {renderProducts()}
+
+      <label htmlFor="total-value-of-products" className="styled-button">Total Value Of Products</label>
+      Rs {calculateTotalValue()}
+
     </div>
   );
 };
